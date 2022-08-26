@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Piece : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class Piece : MonoBehaviour
 
     private float stepTime;
     private float lockTime;
+    private VisualElement escapeMenu;
 
    public void Initialize(Gameboard board, Vector3Int position, TetrominoData data){
     this.board = board;
@@ -23,6 +25,7 @@ public class Piece : MonoBehaviour
     this.currentRotation = 0;
     this.stepTime = Time.time + this.stepDelay;
     this.lockTime = 0f;
+    this.escapeMenu = FindObjectOfType<UIDocument>().rootVisualElement.Q("EscMenu");
 
     if (this.cells == null){
         this.cells = new Vector3Int[data.cells.Length];
@@ -34,7 +37,10 @@ public class Piece : MonoBehaviour
    }
 
     private void Update(){
-
+        if (Input.GetKeyDown(KeyCode.Escape)){
+            escapeMenu.visible ^= true;
+        }
+        
         this.board.Unset(this);
         this.lockTime += Time.deltaTime;
 
@@ -60,6 +66,8 @@ public class Piece : MonoBehaviour
         }
 
         this.board.Set(this);
+
+
     }
 
     private void Step(){
