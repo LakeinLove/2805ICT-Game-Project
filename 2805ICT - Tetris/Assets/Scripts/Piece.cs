@@ -38,34 +38,42 @@ public class Piece : MonoBehaviour
 
     private void Update(){
         if (Input.GetKeyDown(KeyCode.Escape)){
-            escapeMenu.visible ^= true;
+            this.escapeMenu.visible ^= true;
         }
         
-        this.board.Unset(this);
-        this.lockTime += Time.deltaTime;
+        if(this.escapeMenu.visible){
+            this.stepTime = Time.time + this.stepDelay;
+            this.lockTime = 0f;
+        }
+        else{
+            this.board.Unset(this);
+            this.lockTime += Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.UpArrow)){
-            Rotate(1);
+            if (Input.GetKeyDown(KeyCode.UpArrow)){
+                Rotate(1);
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftArrow)){
+                Move(Vector2Int.left);
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow)){
+                Move(Vector2Int.right);
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow)){
+                Move(Vector2Int.down);
+            }
+            if (Input.GetKeyDown(KeyCode.Space)){
+                InstaDrop();
+            }
+
+            if (Time.time >= this.stepTime){
+                Step();
+            }
+
+            this.board.Set(this);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow)){
-            Move(Vector2Int.left);
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow)){
-            Move(Vector2Int.right);
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow)){
-            Move(Vector2Int.down);
-        }
-        if (Input.GetKeyDown(KeyCode.Space)){
-            InstaDrop();
-        }
-
-        if (Time.time >= this.stepTime){
-            Step();
-        }
-
-        this.board.Set(this);
+        
 
 
     }

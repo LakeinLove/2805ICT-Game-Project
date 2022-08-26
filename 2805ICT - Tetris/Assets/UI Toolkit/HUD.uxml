@@ -1,8 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/menu-styles.uss?fileID=7433441132597879392&amp;guid=0575c081716abd94db14e56655e9affd&amp;type=3#menu-styles" />
     <ui:VisualElement name="Root">
-        <ui:VisualElement name="EscMenu" style="position: absolute; top: 230px; left: 549px;">
-            <ui:Label text="Escaped!" display-tooltip-when-elided="true" />
+        <ui:VisualElement name="EscMenu" style="position: absolute; top: 220px; left: 527px;">
+            <ui:Label text="Game Paused" display-tooltip-when-elided="true" />
+            <ui:Button text="Resume" display-tooltip-when-elided="true" name="Resume" />
+            <ui:Button text="Exit" display-tooltip-when-elided="true" name="Exit" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
