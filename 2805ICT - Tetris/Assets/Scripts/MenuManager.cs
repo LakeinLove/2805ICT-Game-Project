@@ -11,8 +11,18 @@ public class MenuManager : MonoBehaviour
     private Button settingsButton;
     private Button highScoreButton;
     private Button exitButton;
+
+    private VisualElement buttonWrapper;
+    [SerializeField]
+    private VisualTreeAsset settingsButtonTemplate;
+    private VisualElement settingsMenuButtons;
+
     private void Awake(){
         this.doc = GetComponent<UIDocument>();
+        this.buttonWrapper = doc.rootVisualElement.Q<VisualElement>("Menu-Buttons");
+        
+        this.settingsMenuButtons = this.settingsButtonTemplate.CloneTree();
+
         this.playButton = doc.rootVisualElement.Q<Button>("Play");
         this.settingsButton = doc.rootVisualElement.Q<Button>("Settings");
         this.highScoreButton = doc.rootVisualElement.Q<Button>("Score");
@@ -29,6 +39,7 @@ public class MenuManager : MonoBehaviour
     }
 
     private void SettingsButtonClicked(){
+        this.buttonWrapper.Clear();
 
     }
 
