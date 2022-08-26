@@ -166,7 +166,7 @@ public class Piece : MonoBehaviour
         }
         else if (valid){
             this.position = newPosition;
-            this.lockTime -= stepTime * 0.1f;
+            this.lockTime -= 0.05f;
         }
 
 
