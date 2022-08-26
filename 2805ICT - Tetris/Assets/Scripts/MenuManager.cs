@@ -6,32 +6,31 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
-    private UIDocument doc;
-    private Button playButton;
-    private Button settingsButton;
-    private Button highScoreButton;
-    private Button exitButton;
 
-    private VisualElement buttonWrapper;
     [SerializeField]
-    private VisualTreeAsset settingsButtonTemplate;
-    private VisualElement settingsMenuButtons;
+    private VisualTreeAsset menuTemplate;
+    [SerializeField]
+    private VisualTreeAsset settingsTemplate;
+    private VisualElement root;
 
     private void Awake(){
-        this.doc = GetComponent<UIDocument>();
-        this.buttonWrapper = doc.rootVisualElement.Q<VisualElement>("Menu-Buttons");
-        
-        this.settingsMenuButtons = this.settingsButtonTemplate.CloneTree();
+        this.root = GetComponent<UIDocument>().rootVisualElement;
+        LoadMainMenu();
+       
+    }
 
-        this.playButton = doc.rootVisualElement.Q<Button>("Play");
-        this.settingsButton = doc.rootVisualElement.Q<Button>("Settings");
-        this.highScoreButton = doc.rootVisualElement.Q<Button>("Score");
-        this.exitButton = doc.rootVisualElement.Q<Button>("Exit");
+    private void LoadMainMenu(){
+        //root.Clear();
+        menuTemplate.CloneTree(root);
+        var playButton = root.Q<Button>("Play");
+        var settingsButton = root.Q<Button>("Settings");
+        var highScoreButton = root.Q<Button>("Score");
+        var exitButton = root.Q<Button>("Exit");
 
-        this.playButton.clicked += PlayButtonClicked;
-        this.settingsButton.clicked += SettingsButtonClicked;
-        this.highScoreButton.clicked += ScoreButtonClicked;
-        this.exitButton.clicked += ExitButtonClicked;
+        playButton.clicked += PlayButtonClicked;
+        settingsButton.clicked += SettingsButtonClicked;
+        highScoreButton.clicked += ScoreButtonClicked;
+        exitButton.clicked += ExitButtonClicked;
     }
 
     private void PlayButtonClicked(){
@@ -39,7 +38,10 @@ public class MenuManager : MonoBehaviour
     }
 
     private void SettingsButtonClicked(){
-        this.buttonWrapper.Clear();
+        //root.Clear();
+        settingsTemplate.CloneTree(root);
+        var returnButtone = root.Q<Button>("Return");
+
 
     }
 
