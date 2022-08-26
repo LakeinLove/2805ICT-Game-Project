@@ -9,6 +9,7 @@ public class Gameboard : MonoBehaviour
     public Tilemap tilemap;
     public Piece activePiece {get; private set;}
     public Vector3Int spawnPosition;
+    public TetrominoData nextPiece;
     public Vector2Int boardSize = new Vector2Int(10, 20);
     public RectInt Bounds{
         get{
@@ -32,7 +33,11 @@ public class Gameboard : MonoBehaviour
 
     public void SpawnPiece(){
         int random = Random.Range(0, this.tetrominos.Length);
-        TetrominoData data = this.tetrominos[random];
+        if (this.nextPiece.tile == null){
+            this.nextPiece = this.tetrominos[random];
+        }
+        TetrominoData data = nextPiece;
+        this.nextPiece = this.tetrominos[random];
         this.activePiece.Initialize(this, this.spawnPosition, data);
         if (!IsValidMove(this.activePiece, this.spawnPosition)){
             GameOver();
