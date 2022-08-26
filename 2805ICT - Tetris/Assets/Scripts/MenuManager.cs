@@ -11,6 +11,8 @@ public class MenuManager : MonoBehaviour
     private VisualTreeAsset menuTemplate;
     [SerializeField]
     private VisualTreeAsset settingsTemplate;
+    [SerializeField]
+    private VisualTreeAsset scoreTemplate;
     private VisualElement root;
 
     private void Awake(){
@@ -20,7 +22,7 @@ public class MenuManager : MonoBehaviour
     }
 
     private void LoadMainMenu(){
-        //root.Clear();
+        root.Clear();
         menuTemplate.CloneTree(root);
         var playButton = root.Q<Button>("Play");
         var settingsButton = root.Q<Button>("Settings");
@@ -38,14 +40,23 @@ public class MenuManager : MonoBehaviour
     }
 
     private void SettingsButtonClicked(){
-        //root.Clear();
+        root.Clear();
         settingsTemplate.CloneTree(root);
-        var returnButtone = root.Q<Button>("Return");
+        var returnButton = root.Q<Button>("ExitSettings");
+
+
+        returnButton.clicked += LoadMainMenu;
 
 
     }
 
     private void ScoreButtonClicked(){
+        root.Clear();
+        scoreTemplate.CloneTree(root);
+        var returnButton = root.Q<Button>("ExitScore");
+
+
+        returnButton.clicked += LoadMainMenu;
 
     }
 

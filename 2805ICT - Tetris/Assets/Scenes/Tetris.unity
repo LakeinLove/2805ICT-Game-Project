@@ -217,14 +217,13 @@ GameObject:
   m_Component:
   - component: {fileID: 893643569}
   - component: {fileID: 893643568}
-  - component: {fileID: 893643570}
   m_Layer: 5
   m_Name: UIDocument
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &893643568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,7 +238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PanelSettings: {fileID: 11400000, guid: 7593bde5b6ae5484488445df3ea68c15, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 1c6fef09ae1506244b5cd7e86b0c9555, type: 3}
+  sourceAsset: {fileID: 0}
   m_SortingOrder: 0
 --- !u!4 &893643569
 Transform:
@@ -256,20 +255,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &893643570
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 893643567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9db312055790a1d498ec42ca81985563, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  menuTemplate: {fileID: 9197481963319205126, guid: 1c6fef09ae1506244b5cd7e86b0c9555, type: 3}
-  settingsTemplate: {fileID: 9197481963319205126, guid: 7b0c3d170101fe54a9199d6d0d6a558c, type: 3}
 --- !u!1 &975932237
 GameObject:
   m_ObjectHideFlags: 0
