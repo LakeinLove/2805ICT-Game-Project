@@ -14,6 +14,10 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private VisualTreeAsset scoreTemplate;
     private VisualElement root;
+    private Button playButton;
+    private Button settingsButton;
+    private Button highScoreButton;
+    private Button exitButton;
 
     private void Awake(){
         this.root = GetComponent<UIDocument>().rootVisualElement;
@@ -24,10 +28,10 @@ public class MenuManager : MonoBehaviour
     private void LoadMainMenu(){
         root.Clear();
         menuTemplate.CloneTree(root);
-        var playButton = root.Q<Button>("Play");
-        var settingsButton = root.Q<Button>("Settings");
-        var highScoreButton = root.Q<Button>("Score");
-        var exitButton = root.Q<Button>("Exit");
+        this.playButton = root.Q<Button>("Play");
+        this.settingsButton = root.Q<Button>("Settings");
+        this.highScoreButton = root.Q<Button>("Score");
+        this.exitButton = root.Q<Button>("Exit");
 
         playButton.clicked += PlayButtonClicked;
         settingsButton.clicked += SettingsButtonClicked;
@@ -35,7 +39,16 @@ public class MenuManager : MonoBehaviour
         exitButton.clicked += ExitButtonClicked;
     }
 
+    private void UnloadMainMenu(){
+        playButton.clicked -= PlayButtonClicked;
+        settingsButton.clicked -= SettingsButtonClicked;
+        highScoreButton.clicked -= ScoreButtonClicked;
+        exitButton.clicked -= ExitButtonClicked;
+        root.Clear();
+    }
+
     private void PlayButtonClicked(){
+        UnloadMainMenu();
         SceneManager.LoadScene("Tetris");
     }
 
