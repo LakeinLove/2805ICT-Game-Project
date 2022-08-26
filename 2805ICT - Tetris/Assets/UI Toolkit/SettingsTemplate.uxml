@@ -1,13 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/menu-styles.uss?fileID=7433441132597879392&amp;guid=0575c081716abd94db14e56655e9affd&amp;type=3#menu-styles" />
-    <ui:VisualElement name="SettingsRoot">
+    <ui:VisualElement name="SettingsRoot" style="font-size: 20px; color: rgb(255, 215, 0); background-color: rgb(204, 0, 0);">
         <ui:GroupBox text="Game Board Size" name="GameBoardSize" style="-unity-text-align: upper-center;">
-            <ui:SliderInt picking-mode="Ignore" label="Width" value="10" high-value="20" name="Width" show-input-field="true" low-value="5" />
-            <ui:SliderInt picking-mode="Ignore" label="Height" value="20" high-value="40" name="Height" show-input-field="true" low-value="10" page-size="0" direction="Horizontal" inverted="false" />
+            <ui:SliderInt picking-mode="Ignore" label="Width" high-value="20" name="Width" show-input-field="true" low-value="5" value="10" />
+            <ui:SliderInt picking-mode="Ignore" label="Height" high-value="40" name="Height" show-input-field="true" low-value="10" page-size="0" direction="Horizontal" inverted="false" value="20" />
         </ui:GroupBox>
-        <ui:DropdownField label="Level Select:" index="-1" name="LevelSelect" style="-unity-text-align: upper-center;" />
+        <ui:DropdownField label="Level Select:" index="-1" name="LevelSelect" choices="One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten" style="-unity-text-align: upper-center;" />
         <ui:RadioButtonGroup label="Game Type:" value="0" choices="Normal, Extended" name="GameType" style="-unity-text-align: upper-center;" />
-        <ui:RadioButtonGroup label="Loyal Soviet Operator:" value="-1" choices="Glorious Soviet Automation,Hardened Soviet Comrade" style="-unity-text-align: upper-center;" />
-        <ui:Button text="Return to Menu" display-tooltip-when-elided="true" name="ExitSettings" />
+        <ui:RadioButtonGroup label="Loyal Soviet Operator:" value="0" choices="Loyal Soviet Volunteer, Glorious Soviet Automation" style="-unity-text-align: upper-center; align-items: stretch; justify-content: flex-start;" />
+        <ui:Button text="Return to Menu" display-tooltip-when-elided="true" name="ExitSettings" style="font-size: 20px; background-color: rgb(101, 101, 101); color: rgb(255, 215, 0);" />
     </ui:VisualElement>
 </ui:UXML>

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
 public class Gameboard : MonoBehaviour
 {
@@ -42,6 +43,7 @@ public class Gameboard : MonoBehaviour
 
     public void GameOver(){
         this.tilemap.ClearAllTiles();
+        SceneManager.LoadScene("Menus");
     }
 
     public void Set(Piece piece){

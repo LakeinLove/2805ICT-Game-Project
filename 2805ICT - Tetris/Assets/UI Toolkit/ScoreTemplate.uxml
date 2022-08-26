@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="ScoreMenu">
+        <ui:ListView focusable="true" header-title="High Scores:" name="HighScores" />
+        <ui:Button text="Return to Main Menu" display-tooltip-when-elided="true" name="ExitScore" />
+    </ui:VisualElement>
+</ui:UXML>
