@@ -5,9 +5,9 @@
             <ui:SliderInt picking-mode="Ignore" label="Width" high-value="20" name="Width" show-input-field="true" low-value="5" value="10" />
             <ui:SliderInt picking-mode="Ignore" label="Height" high-value="40" name="Height" show-input-field="true" low-value="10" page-size="0" direction="Horizontal" inverted="false" value="20" />
         </ui:GroupBox>
-        <ui:DropdownField label="Level Select:" index="-1" name="LevelSelect" choices="One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten" style="-unity-text-align: upper-center;" />
+        <ui:DropdownField label="Level Select:" index="0" name="LevelSelect" choices="One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten" style="-unity-text-align: upper-center;" />
         <ui:RadioButtonGroup label="Game Type:" value="0" choices="Normal, Extended" name="GameType" style="-unity-text-align: upper-center;" />
-        <ui:RadioButtonGroup label="Loyal Soviet Operator:" value="0" choices="Loyal Soviet Volunteer, Glorious Soviet Automation" style="-unity-text-align: upper-center; align-items: stretch; justify-content: flex-start;" />
+        <ui:RadioButtonGroup label="Player Selection: " value="0" choices="Loyal Soviet Volunteer, Glorious Soviet Automation" style="-unity-text-align: upper-center; align-items: stretch; justify-content: flex-start;" />
         <ui:Button text="Return to Menu" display-tooltip-when-elided="true" name="ExitSettings" style="font-size: 20px; background-color: rgb(101, 101, 101); color: rgb(255, 215, 0);" />
     </ui:VisualElement>
 </ui:UXML>

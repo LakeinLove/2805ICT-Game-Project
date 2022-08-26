@@ -8,7 +8,7 @@ public class HudManager : MonoBehaviour
 {
     private VisualElement root;
     private VisualElement escapeMenu;
-    
+
     private Button resumeButton;
     private Button exitButton;
 

@@ -1,10 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/menu-styles.uss?fileID=7433441132597879392&amp;guid=0575c081716abd94db14e56655e9affd&amp;type=3#menu-styles" />
-    <ui:VisualElement name="Root" style="height: 546px; align-items: flex-start; justify-content: space-around; flex-wrap: nowrap; flex-direction: column; flex-shrink: 0;">
+    <ui:VisualElement name="Root" style="align-items: flex-start; justify-content: space-around; flex-wrap: nowrap; flex-direction: column; flex-shrink: 0;">
         <ui:Label text="Group 28 - The best one" display-tooltip-when-elided="true" />
-        <ui:GroupBox name="Next" style="position: relative; top: 0; left: 75%; width: 277px; height: 150px;">
+        <ui:GroupBox name="Next" style="position: relative; top: -20px; left: 75%; width: 277px; height: 235px; bottom: 0;">
             <ui:Label text="Next Piece:" display-tooltip-when-elided="true" name="NextLabel" style="-unity-text-align: upper-center;" />
-            <ui:VisualElement name="PieceImage" style="position: relative;" />
+            <ui:VisualElement name="PieceImage" style="position: relative; background-image: url(&apos;project://database/Assets/Sprites/I_tet.png?fileID=2800000&amp;guid=bc2a303c80414e74586c1e0f17216d49&amp;type=3#I_tet&apos;); height: 201px; width: 272px;" />
         </ui:GroupBox>
         <ui:VisualElement name="EscMenu" style="position: absolute; top: 40%; left: 45%;">
             <ui:Label text="Game Paused" display-tooltip-when-elided="true" />

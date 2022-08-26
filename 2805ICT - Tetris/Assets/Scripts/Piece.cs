@@ -17,6 +17,7 @@ public class Piece : MonoBehaviour
     private float stepTime;
     private float lockTime;
     private VisualElement escapeMenu;
+    private VisualElement nextPiecePic;
 
    public void Initialize(Gameboard board, Vector3Int position, TetrominoData data){
     this.board = board;
@@ -72,9 +73,6 @@ public class Piece : MonoBehaviour
 
             this.board.Set(this);
         }
-
-        
-
 
     }
 
