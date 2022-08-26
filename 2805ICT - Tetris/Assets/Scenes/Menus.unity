@@ -155,7 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuTemplate: {fileID: 9197481963319205126, guid: 1c6fef09ae1506244b5cd7e86b0c9555, type: 3}
   settingsTemplate: {fileID: 9197481963319205126, guid: 7b0c3d170101fe54a9199d6d0d6a558c, type: 3}
-  scoreTemplate: {fileID: 0}
+  scoreTemplate: {fileID: 9197481963319205126, guid: 52df25388fc8a5345b2132499ec91dcc, type: 3}
 --- !u!114 &1219708912
 MonoBehaviour:
   m_ObjectHideFlags: 0

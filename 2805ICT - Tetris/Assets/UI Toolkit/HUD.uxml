@@ -1,10 +1,19 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/menu-styles.uss?fileID=7433441132597879392&amp;guid=0575c081716abd94db14e56655e9affd&amp;type=3#menu-styles" />
-    <ui:VisualElement name="Root">
-        <ui:VisualElement name="EscMenu" style="position: absolute; top: 220px; left: 527px;">
+    <ui:VisualElement name="Root" style="height: 546px; align-items: flex-start; justify-content: space-around; flex-wrap: nowrap; flex-direction: column; flex-shrink: 0;">
+        <ui:Label text="Group 28 - The best one" display-tooltip-when-elided="true" />
+        <ui:GroupBox name="Next" style="position: relative; top: 0; left: 75%; width: 277px; height: 150px;">
+            <ui:Label text="Next Piece:" display-tooltip-when-elided="true" name="NextLabel" style="-unity-text-align: upper-center;" />
+            <ui:VisualElement name="PieceImage" style="position: relative;" />
+        </ui:GroupBox>
+        <ui:VisualElement name="EscMenu" style="position: absolute; top: 40%; left: 45%;">
             <ui:Label text="Game Paused" display-tooltip-when-elided="true" />
             <ui:Button text="Resume" display-tooltip-when-elided="true" name="Resume" />
             <ui:Button text="Exit" display-tooltip-when-elided="true" name="Exit" />
         </ui:VisualElement>
+        <ui:RadioButtonGroup label="Who is playing:" value="0" choices="Player, AI" name="Player" style="position: relative; top: 70%; left: 75%; width: 277px; -unity-text-align: upper-center;" />
+        <ui:TextField picking-mode="Ignore" label="Current Score:" value="0" text="0" name="Score" style="position: relative; top: 50%; left: auto; width: 20%;" />
+        <ui:TextField picking-mode="Ignore" label="Current Level:" value="0" text="0" name="Level" style="position: relative; top: 50%; left: auto; width: 20%;" />
+        <ui:TextField picking-mode="Ignore" label="Lines Destroyed:" value="filler text" text="0" name="Lines" style="position: relative; top: 50%; left: auto; width: 20%;" />
     </ui:VisualElement>
 </ui:UXML>

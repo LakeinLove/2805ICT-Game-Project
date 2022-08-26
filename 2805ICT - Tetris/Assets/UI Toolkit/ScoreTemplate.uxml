@@ -1,6 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/menu-styles.uss?fileID=7433441132597879392&amp;guid=0575c081716abd94db14e56655e9affd&amp;type=3#menu-styles" />
     <ui:VisualElement name="ScoreMenu">
-        <ui:ListView focusable="true" header-title="High Scores:" name="HighScores" />
-        <ui:Button text="Return to Main Menu" display-tooltip-when-elided="true" name="ExitScore" />
+        <ui:GroupBox style="-unity-text-align: upper-center;">
+            <ui:Label text="High Scores:" display-tooltip-when-elided="true" />
+            <ui:Label text="#1.  LAK - 28000" display-tooltip-when-elided="true" />
+            <ui:Label text="#2 JAS 22400" display-tooltip-when-elided="true" />
+            <ui:Label text="#3 CIM 13000" display-tooltip-when-elided="true" />
+            <ui:Label text="#4 CAM 11200" display-tooltip-when-elided="true" />
+        </ui:GroupBox>
+        <ui:Button text="Return to Main Menu" display-tooltip-when-elided="true" name="ExitScore" style="bottom: 0; top: 90%;" />
     </ui:VisualElement>
 </ui:UXML>

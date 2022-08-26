@@ -7,6 +7,7 @@
             <ui:Button text="High Scores" display-tooltip-when-elided="true" name="Score" class="menu-button" />
             <ui:Button text="Settings" display-tooltip-when-elided="true" name="Settings" class="menu-button" />
             <ui:Button text="Exit" display-tooltip-when-elided="true" name="Exit" class="menu-button" />
+            <ui:Label text="2022 - 2805ICT - Sarah Mallet, Jason Carruthers" display-tooltip-when-elided="true" style="left: 0; top: 0; right: 0; bottom: 0;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
