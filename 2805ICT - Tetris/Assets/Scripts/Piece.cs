@@ -11,11 +11,6 @@ public class Piece : MonoBehaviour
     public Vector3Int position {get; private set;}
     public Vector3Int[] cells {get; private set;}
 
-    public float stepDelay = 1f;
-    public float lockDelay = 0.5f;
-
-    private float stepTime;
-    private float lockTime;
     private VisualElement escapeMenu;
     private VisualElement nextPiecePic;
 
@@ -24,9 +19,9 @@ public class Piece : MonoBehaviour
     this.position = position;
     this.data = data;
     this.currentRotation = 0;
-    this.stepTime = Time.time + this.stepDelay;
-    this.lockTime = 0f;
-    this.escapeMenu = FindObjectOfType<UIDocument>().rootVisualElement.Q("EscMenu");
+    PlayManager.Instance.activePiece = this;
+    PlayManager.Instance.stepTime = Time.time + PlayManager.Instance.stepDelay;
+    PlayManager.Instance.lockTime = 0f;
 
     if (this.cells == null){
         this.cells = new Vector3Int[data.cells.Length];
@@ -38,53 +33,17 @@ public class Piece : MonoBehaviour
    }
 
     private void Update(){
-        if (Input.GetKeyDown(KeyCode.Escape)){
-            this.escapeMenu.visible ^= true;
-        }
-        
-        if(this.escapeMenu.visible){
-            this.stepTime = Time.time + this.stepDelay;
-            this.lockTime = 0f;
-        }
-        else{
-            this.board.Unset(this);
-            this.lockTime += Time.deltaTime;
-
-            if (Input.GetKeyDown(KeyCode.UpArrow)){
-                Rotate(1);
-            }
-
-            if (Input.GetKeyDown(KeyCode.LeftArrow)){
-                Move(Vector2Int.left);
-            }
-            else if (Input.GetKeyDown(KeyCode.RightArrow)){
-                Move(Vector2Int.right);
-            }
-            if (Input.GetKeyDown(KeyCode.DownArrow)){
-                Move(Vector2Int.down);
-            }
-            if (Input.GetKeyDown(KeyCode.Space)){
-                InstaDrop();
-            }
-
-            if (Time.time >= this.stepTime){
-                Step();
-            }
-
-            this.board.Set(this);
-        }
 
     }
 
-    private void Step(){
-        this.stepTime = Time.time + this.stepDelay;
+    public void Step(){
         Move(Vector2Int.down);
-        if (this.lockTime >= this.lockDelay){
+        if (PlayManager.Instance.lockTime >= PlayManager.Instance.lockDelay){
             Lock();
         }
     }
 
-    private void InstaDrop(){
+    public void InstaDrop(){
         while (Move(Vector2Int.down)){
             continue;
         }
@@ -97,7 +56,7 @@ public class Piece : MonoBehaviour
         this.board.SpawnPiece();
     }
 
-    private void Rotate(int direction){
+    public void Rotate(int direction){
         int originalRotation = this.currentRotation;
         this.currentRotation = Wrap(this.currentRotation + direction, 0, 4);
         ApplyRotationMatrix(direction);
@@ -160,7 +119,7 @@ public class Piece : MonoBehaviour
             return min + (input - min) % (max - min);
     }
 
-    private bool Move(Vector2Int translation){
+    public bool Move(Vector2Int translation){
         Vector3Int newPosition = this.position;
         newPosition.x += translation.x;
         newPosition.y += translation.y;
@@ -168,11 +127,11 @@ public class Piece : MonoBehaviour
         bool valid = this.board.IsValidMove(this, newPosition);
         if (valid && translation == Vector2Int.down){
             this.position = newPosition;
-            this.lockTime = 0f;
+            PlayManager.Instance.lockTime = 0f;
         }
         else if (valid){
             this.position = newPosition;
-            this.lockTime -= 0.05f;
+            PlayManager.Instance.lockTime -= 0.05f;
         }
 
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.SceneManagement;
+
 
 public class HudManager : MonoBehaviour
 {
@@ -14,6 +14,7 @@ public class HudManager : MonoBehaviour
 
     private void Awake(){
         this.root = GetComponent<UIDocument>().rootVisualElement;
+        GameManager.OnStateChange += GameManagerStateChanged;
 
         this.escapeMenu = root.Q<VisualElement>("EscMenu");
         this.resumeButton = escapeMenu.Q<Button>("Resume");
@@ -25,14 +26,22 @@ public class HudManager : MonoBehaviour
         exitButton.clicked += ExitGame;
 
     }
+    private void GameManagerStateChanged(GameState state){
+        escapeMenu.visible = (state == GameState.Paused);
+    }
+
+    private void updateScore(){
+        
+    }
 
     private void ResumeGame(){
-        escapeMenu.visible = false;
+        GameManager.Instance.SetGameState(GameState.Playing);
     }
 
     private void ExitGame(){
         resumeButton.clicked -= ResumeGame;
         exitButton.clicked -= ExitGame;
-        SceneManager.LoadScene("Menus");
+        GameManager.OnStateChange -= GameManagerStateChanged;
+        GameManager.Instance.SetGameState(GameState.Quit);
     }
 }

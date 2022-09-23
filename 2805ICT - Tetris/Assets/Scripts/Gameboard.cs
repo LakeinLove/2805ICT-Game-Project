@@ -83,15 +83,22 @@ public class Gameboard : MonoBehaviour
     public void ClearLines(){
         RectInt bounds = this.Bounds;
         int row = bounds.yMin;
-
+        int[] points = {100, 300, 600, 1000};
+        int rowCount = -1;
         while (row < bounds.yMax){
             if (IsLineFull(row)){
                 LineClear(row);
+                rowCount++;
             }
             else{
                 row++;
             }
+            
         }
+        if(rowCount >= 0){
+            GameManager.Instance.Score += points[rowCount];
+        }
+        rowCount = -1;
     }
 
     private bool IsLineFull(int row){
