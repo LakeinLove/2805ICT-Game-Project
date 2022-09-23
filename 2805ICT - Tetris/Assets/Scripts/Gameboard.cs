@@ -11,6 +11,7 @@ public class Gameboard : MonoBehaviour
     public Vector3Int spawnPosition;
     public TetrominoData nextPiece;
     public Vector2Int boardSize = new Vector2Int(10, 20);
+    int tetrominoNum = 7;
     public RectInt Bounds{
         get{
             Vector2Int position = new Vector2Int(-this.boardSize.x /2, -this.boardSize.y /2);
@@ -21,8 +22,10 @@ public class Gameboard : MonoBehaviour
     private void Awake(){
         this.tilemap = GetComponentInChildren<Tilemap>();
         this.activePiece = GetComponentInChildren<Piece>();
-
-        for (int i = 0; i < this.tetrominos.Length; i++){
+        if(SettingManager.Instance.extraPieces){
+            tetrominoNum = 9;
+        }
+        for (int i = 0; i < tetrominoNum; i++){
             this.tetrominos[i].Initialize();
         }
     }
@@ -32,7 +35,7 @@ public class Gameboard : MonoBehaviour
     }
 
     public void SpawnPiece(){
-        int random = Random.Range(0, this.tetrominos.Length);
+        int random = Random.Range(0, tetrominoNum);
         if (this.nextPiece.tile == null){
             this.nextPiece = this.tetrominos[random];
         }
@@ -83,7 +86,6 @@ public class Gameboard : MonoBehaviour
     public void ClearLines(){
         RectInt bounds = this.Bounds;
         int row = bounds.yMin;
-        int[] points = {100, 300, 600, 1000};
         int rowCount = -1;
         while (row < bounds.yMax){
             if (IsLineFull(row)){
@@ -93,10 +95,9 @@ public class Gameboard : MonoBehaviour
             else{
                 row++;
             }
-            
         }
         if(rowCount >= 0){
-            GameManager.Instance.Score += points[rowCount];
+            GameManager.Instance.updateScore(rowCount);
         }
         rowCount = -1;
     }

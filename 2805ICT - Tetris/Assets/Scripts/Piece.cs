@@ -32,10 +32,6 @@ public class Piece : MonoBehaviour
     }
    }
 
-    private void Update(){
-
-    }
-
     public void Step(){
         Move(Vector2Int.down);
         if (PlayManager.Instance.lockTime >= PlayManager.Instance.lockDelay){
@@ -103,7 +99,6 @@ public class Piece : MonoBehaviour
     }
 
     private int GetKickIndex(int rotationIndex, int rotationDirection){
-        Debug.Log(rotationIndex);
         int kickIndex = rotationIndex * 2;
         if (rotationDirection < 0){
             kickIndex--;

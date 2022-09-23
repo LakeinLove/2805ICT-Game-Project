@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class SettingManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static SettingManager Instance;
+    int boardWidth;
+    int boardLength;
+    public bool extraPieces = false;
+    bool aiControl;
+    int startingLevel;
+    void Awake()
     {
-        
+        Instance = this;
     }
 
     // Update is called once per frame

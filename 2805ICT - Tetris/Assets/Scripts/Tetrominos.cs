@@ -8,6 +8,8 @@ public enum Tetromino{
     L,
     S,
     Z,
+    C,
+    SL
 }
 [System.Serializable]
 public struct TetrominoData{
