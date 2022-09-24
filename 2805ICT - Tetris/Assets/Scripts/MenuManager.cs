@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
-
+    //these are all UI elements
     [SerializeField]
     private VisualTreeAsset menuTemplate;
     [SerializeField]
@@ -19,12 +19,13 @@ public class MenuManager : MonoBehaviour
     private Button highScoreButton;
     private Button exitButton;
 
+    //first thign done is to load the main menu
     private void Awake(){
         this.root = GetComponent<UIDocument>().rootVisualElement;
         LoadMainMenu();
        
     }
-
+    //clears all ui elements, which unsubscribes all button clicks, then creates 4 buttons and subscribes to them from the template
     private void LoadMainMenu(){
         root.Clear();
         menuTemplate.CloneTree(root);
@@ -38,7 +39,7 @@ public class MenuManager : MonoBehaviour
         highScoreButton.clicked += ScoreButtonClicked;
         exitButton.clicked += ExitButtonClicked;
     }
-
+    //unsubscribes the mainmenu buttons and the clears the root directory
     private void UnloadMainMenu(){
         playButton.clicked -= PlayButtonClicked;
         settingsButton.clicked -= SettingsButtonClicked;
@@ -46,12 +47,12 @@ public class MenuManager : MonoBehaviour
         exitButton.clicked -= ExitButtonClicked;
         root.Clear();
     }
-
+    //unloads the main menu then loads the next scene
     private void PlayButtonClicked(){
         UnloadMainMenu();
         SceneManager.LoadScene("Tetris");
     }
-
+    //clears the root directory again, then copies over the settingsTemplate, and creates all the buttons and values
     private void SettingsButtonClicked(){
         root.Clear();
         settingsTemplate.CloneTree(root);
@@ -66,7 +67,7 @@ public class MenuManager : MonoBehaviour
 
         loadSettings();
         returnButton.clicked += ExitSettings;
-
+        //loads all previously saved data from the PlayerPrefs file to the settings menu
         void loadSettings(){
             boardWidth.value = PrefsHelper.LoadInt("boardWidth", 10);
             boardHeight.value = PrefsHelper.LoadInt("boardHeight", 20);
@@ -75,7 +76,7 @@ public class MenuManager : MonoBehaviour
             playerSelect.value = PrefsHelper.LoadInt("playerSelect");
 
         }
-        
+        //saves any modified settings to the playerprefs file
         void saveSettings(){
             PlayerPrefs.SetInt("boardWidth", boardWidth.value);
             PlayerPrefs.SetInt("boardHeight", boardHeight.value);
@@ -89,19 +90,15 @@ public class MenuManager : MonoBehaviour
             LoadMainMenu();
         }
     }
-
+    //doesn't do much at the moment, but will load the score template and then copy the top 10 highest scores from PlayerPrefs and display them
     private void ScoreButtonClicked(){
         root.Clear();
         scoreTemplate.CloneTree(root);
         var returnButton = root.Q<Button>("ExitScore");
-
-
         returnButton.clicked += LoadMainMenu;
-
     }
-
+    //quits the entire program
     private void ExitButtonClicked(){
         Application.Quit();
     }
-
 }

@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PlayManager : MonoBehaviour
 {
+    //singleton that managed the moment to moment gameplay
     public static PlayManager Instance;
     public Gameboard board;
     public Piece activePiece {get; set;}
-
+    //capitalised to allow use of level later with no issues
     public int Level;
     private int levelCap;
     private int levelReq;
@@ -19,7 +20,7 @@ public class PlayManager : MonoBehaviour
     public float stepTime;
     public bool extrominos;
 
-
+    //set the singleton instance, then load all information either from the game preferences or from standard tetris ideals
     void Awake(){
         Instance = this;
         Level = PrefsHelper.LoadInt("level", 0);
@@ -33,15 +34,15 @@ public class PlayManager : MonoBehaviour
             
     }
 
-    // Update is called once per frame
+    // Update is called once per frame, runs the piece movement
     void Update(){
         if (Input.GetKeyDown(KeyCode.Escape)){
             GameManager.Instance.SetGameState(GameState.Paused);
         }
-        
+        //usets the piece from the board to move it
         this.board.Unset(activePiece);
         this.lockTime += Time.deltaTime;
-
+        //rotates clockwise
         if (Input.GetKeyDown(KeyCode.UpArrow)){
             activePiece.Rotate(1);
         }
@@ -63,12 +64,12 @@ public class PlayManager : MonoBehaviour
             this.stepTime = Time.time + this.stepDelay;
             activePiece.Step();
         }
-
+        //sets this piece in place, then updates the hud
         this.board.Set(activePiece);
         HudManager.Instance.updateHUD(Score, LinesCleared, Level);
         
     }
-
+    //score is updated by the board when it clears any number of lines, will be one lower than number of lines cleared
     public void updateScore(int linesCleared){
         int[] points = {100, 300, 600, 1000};
         Score += points[linesCleared];
@@ -77,6 +78,7 @@ public class PlayManager : MonoBehaviour
             updateLevel();
         }
     }
+    //updates the level of the game, increasing the required number of lines and the delay
     public void updateLevel(){
         if (Level >= levelCap){
             return;
