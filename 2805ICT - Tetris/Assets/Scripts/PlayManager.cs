@@ -22,14 +22,15 @@ public class PlayManager : MonoBehaviour
 
     void Awake(){
         Instance = this;
-        Level = 1;
+        Level = PrefsHelper.LoadInt("level", 0);
+        extrominos = (PrefsHelper.LoadInt("gameType", 0) != 0);
         levelCap = 10;
-        levelReq = 10 * Level;
+        levelReq = 10 * (1 + Level);
         Score = 0;
         LinesCleared = 0;
-        stepDelay = (2f - Level * 0.15f);
+        stepDelay = (2f - Level * 0.18f);
         lockDelay = 0.5f;
-
+            
     }
 
     // Update is called once per frame
@@ -82,7 +83,7 @@ public class PlayManager : MonoBehaviour
         }
         levelReq += 10;
         Level++;
-        stepDelay -= 0.15f;
+        stepDelay -= 0.18f;
 
     }
 }

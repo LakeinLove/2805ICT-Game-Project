@@ -37,7 +37,7 @@ public  class GameManager : MonoBehaviour
                 PlayManager.Instance.enabled = false;
                 break;
         }
-        OnStateChange(newState);
+        OnStateChange?.Invoke(newState);
     }
 }
 

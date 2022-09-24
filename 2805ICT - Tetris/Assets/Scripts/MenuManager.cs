@@ -68,19 +68,14 @@ public class MenuManager : MonoBehaviour
         returnButton.clicked += ExitSettings;
 
         void loadSettings(){
-            boardWidth.value = loadInt("boardWidth", 10);
-            boardHeight.value = loadInt("boardHeight", 20);
-            levelSelect.index = loadInt("level");
-            gameType.value = loadInt("gameType");
-            playerSelect.value = loadInt("playerSelect");
+            boardWidth.value = PrefsHelper.LoadInt("boardWidth", 10);
+            boardHeight.value = PrefsHelper.LoadInt("boardHeight", 20);
+            levelSelect.index = PrefsHelper.LoadInt("level");
+            gameType.value = PrefsHelper.LoadInt("gameType");
+            playerSelect.value = PrefsHelper.LoadInt("playerSelect");
 
         }
-        int loadInt(string key, int @default = 0) {
-            if (PlayerPrefs.HasKey(key)){
-                return PlayerPrefs.GetInt(key);
-            }
-            return @default;
-        }
+        
         void saveSettings(){
             PlayerPrefs.SetInt("boardWidth", boardWidth.value);
             PlayerPrefs.SetInt("boardHeight", boardHeight.value);
@@ -94,9 +89,6 @@ public class MenuManager : MonoBehaviour
             LoadMainMenu();
         }
     }
-
-    
-
 
     private void ScoreButtonClicked(){
         root.Clear();

@@ -6,11 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class Gameboard : MonoBehaviour
 {
+    public SpriteRenderer Grid;
     public Tilemap tilemap;
     public Piece activePiece {get; private set;}
     public Vector3Int spawnPosition;
     public TetrominoData nextPiece;
-    public Vector2Int boardSize = new Vector2Int(10, 20);
+    public Vector2Int boardSize;
     int tetrominoNum = 7;
     public RectInt Bounds{
         get{
@@ -20,6 +21,11 @@ public class Gameboard : MonoBehaviour
     }
     public TetrominoData[] tetrominos;
     private void Awake(){
+        int boardWidth = PrefsHelper.LoadInt("boardWidth", 10);
+        int boardHeight = PrefsHelper.LoadInt("boardHeight", 20);
+        boardSize = new Vector2Int(boardWidth, boardHeight);
+        Grid.size = boardSize;
+
         this.tilemap = GetComponentInChildren<Tilemap>();
         this.activePiece = GetComponentInChildren<Piece>();
         if(PlayManager.Instance.extrominos){

@@ -792,6 +792,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 698c045a42c21aa45863f0b540889a8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Grid: {fileID: 2144801428}
   tilemap: {fileID: 0}
   spawnPosition: {x: -1, y: 8, z: 0}
   nextPiece:
