@@ -22,7 +22,7 @@ public class Gameboard : MonoBehaviour
     private void Awake(){
         this.tilemap = GetComponentInChildren<Tilemap>();
         this.activePiece = GetComponentInChildren<Piece>();
-        if(SettingManager.Instance.extraPieces){
+        if(PlayManager.Instance.extrominos){
             tetrominoNum = 9;
         }
         for (int i = 0; i < tetrominoNum; i++){
@@ -51,7 +51,7 @@ public class Gameboard : MonoBehaviour
 
     public void GameOver(){
         this.tilemap.ClearAllTiles();
-        SceneManager.LoadScene("Menus");
+        GameManager.Instance.SetGameState(GameState.End);
     }
 
     public void Set(Piece piece){
@@ -97,7 +97,7 @@ public class Gameboard : MonoBehaviour
             }
         }
         if(rowCount >= 0){
-            GameManager.Instance.updateScore(rowCount);
+            PlayManager.Instance.updateScore(rowCount);
         }
         rowCount = -1;
     }

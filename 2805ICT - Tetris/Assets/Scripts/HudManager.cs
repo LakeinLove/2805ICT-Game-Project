@@ -1,24 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 
+
 public class HudManager : MonoBehaviour
 {
+    public static HudManager Instance;
+    public UIDocument HUD;
     private VisualElement root;
     private VisualElement escapeMenu;
+
+    private TextField score;
+    private TextField lines;
+    private TextField level;
 
     private Button resumeButton;
     private Button exitButton;
 
     private void Awake(){
-        this.root = GetComponent<UIDocument>().rootVisualElement;
-        GameManager.OnStateChange += GameManagerStateChanged;
+                Instance = this;
+        Debugger.Break();
+        this.root = HUD.rootVisualElement;
 
+        GameManager.OnStateChange += GameManagerStateChanged;
         this.escapeMenu = root.Q<VisualElement>("EscMenu");
         this.resumeButton = escapeMenu.Q<Button>("Resume");
         this.exitButton = escapeMenu.Q<Button>("Exit");
+        this.score = root.Q<TextField>("Score");
+        this.lines = root.Q<TextField>("Lines");
+        this.level = root.Q<TextField>("Level");
 
         this.escapeMenu.visible = false;
 
@@ -30,8 +43,10 @@ public class HudManager : MonoBehaviour
         escapeMenu.visible = (state == GameState.Paused);
     }
 
-    private void updateScore(){
-        
+    public void updateHUD(int s, int destroyed, int level){
+        this.score.value = $"{s}";
+        this.lines.value = $"{destroyed}";
+        this.level.value = $"{level}";
     }
 
     private void ResumeGame(){

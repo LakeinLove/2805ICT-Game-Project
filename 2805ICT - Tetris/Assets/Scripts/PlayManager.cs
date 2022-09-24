@@ -8,15 +8,28 @@ public class PlayManager : MonoBehaviour
     public Gameboard board;
     public Piece activePiece {get; set;}
 
-    public float stepDelay = 1f;
-    public float lockDelay = 0.5f;
+    public int Level;
+    private int levelCap;
+    private int levelReq;
+    public int Score;
+    public int LinesCleared;
+    public float stepDelay;
+    public float lockDelay;
     public float lockTime;
     public float stepTime;
-
+    public bool extrominos;
 
 
     void Awake(){
         Instance = this;
+        Level = 1;
+        levelCap = 10;
+        levelReq = 10 * Level;
+        Score = 0;
+        LinesCleared = 0;
+        stepDelay = (2f - Level * 0.15f);
+        lockDelay = 0.5f;
+
     }
 
     // Update is called once per frame
@@ -51,6 +64,25 @@ public class PlayManager : MonoBehaviour
         }
 
         this.board.Set(activePiece);
+        HudManager.Instance.updateHUD(Score, LinesCleared, Level);
         
+    }
+
+    public void updateScore(int linesCleared){
+        int[] points = {100, 300, 600, 1000};
+        Score += points[linesCleared];
+        LinesCleared += (linesCleared + 1);
+        if (LinesCleared >= levelReq){
+            updateLevel();
+        }
+    }
+    public void updateLevel(){
+        if (Level >= levelCap){
+            return;
+        }
+        levelReq += 10;
+        Level++;
+        stepDelay -= 0.15f;
+
     }
 }

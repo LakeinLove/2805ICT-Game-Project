@@ -7,7 +7,7 @@
         </ui:GroupBox>
         <ui:DropdownField label="Level Select:" index="0" name="LevelSelect" choices="One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten" style="-unity-text-align: upper-center;" />
         <ui:RadioButtonGroup label="Game Type:" value="0" choices="Normal, Extended" name="GameType" style="-unity-text-align: upper-center;" />
-        <ui:RadioButtonGroup label="Player Selection: " value="0" choices="Loyal Soviet Volunteer, Glorious Soviet Automation" style="-unity-text-align: upper-center; align-items: stretch; justify-content: flex-start;" />
+        <ui:RadioButtonGroup label="Player Selection: " value="0" choices="Loyal Soviet Volunteer, Glorious Soviet Automation" name="AISelect" style="-unity-text-align: upper-center; align-items: stretch; justify-content: flex-start;" />
         <ui:Button text="Return to Menu" display-tooltip-when-elided="true" name="ExitSettings" style="font-size: 20px; background-color: rgb(101, 101, 101); color: rgb(255, 215, 0);" />
     </ui:VisualElement>
 </ui:UXML>

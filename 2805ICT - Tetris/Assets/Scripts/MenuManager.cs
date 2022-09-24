@@ -55,13 +55,48 @@ public class MenuManager : MonoBehaviour
     private void SettingsButtonClicked(){
         root.Clear();
         settingsTemplate.CloneTree(root);
+        
         var returnButton = root.Q<Button>("ExitSettings");
+        var boardSettings = root.Q<GroupBox>("GameBoardSize");
+        var boardWidth = root.Q<SliderInt>("Width");
+        var boardHeight = root.Q<SliderInt>("Height");
+        var levelSelect = root.Q<DropdownField>("LevelSelect");
+        var gameType = root.Q<RadioButtonGroup>("GameType");
+        var playerSelect = root.Q<RadioButtonGroup>("AISelect");
 
+        loadSettings();
+        returnButton.clicked += ExitSettings;
 
-        returnButton.clicked += LoadMainMenu;
+        void loadSettings(){
+            boardWidth.value = loadInt("boardWidth", 10);
+            boardHeight.value = loadInt("boardHeight", 20);
+            levelSelect.index = loadInt("level");
+            gameType.value = loadInt("gameType");
+            playerSelect.value = loadInt("playerSelect");
 
-
+        }
+        int loadInt(string key, int @default = 0) {
+            if (PlayerPrefs.HasKey(key)){
+                return PlayerPrefs.GetInt(key);
+            }
+            return @default;
+        }
+        void saveSettings(){
+            PlayerPrefs.SetInt("boardWidth", boardWidth.value);
+            PlayerPrefs.SetInt("boardHeight", boardHeight.value);
+            PlayerPrefs.SetInt("level", levelSelect.index);
+            PlayerPrefs.SetInt("gameType", gameType.value);
+            PlayerPrefs.SetInt("playerSelect", playerSelect.value);
+            PlayerPrefs.Save();
+        }
+        void ExitSettings(){
+            saveSettings();
+            LoadMainMenu();
+        }
     }
+
+    
+
 
     private void ScoreButtonClicked(){
         root.Clear();

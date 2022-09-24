@@ -12,7 +12,7 @@
             <ui:Button text="Exit" display-tooltip-when-elided="true" name="Exit" />
         </ui:VisualElement>
         <ui:RadioButtonGroup label="Who is playing:" value="0" choices="Player, AI" name="Player" style="position: relative; top: 70%; left: 75%; width: 277px; -unity-text-align: upper-center;" />
-        <ui:TextField picking-mode="Ignore" label="Current Score:" value="0" text="0" name="Score" style="position: relative; top: 50%; left: auto; width: 20%;" />
+        <ui:TextField picking-mode="Ignore" label="Current Score:" name="Score" style="position: relative; top: 50%; left: auto; width: 20%;" />
         <ui:TextField picking-mode="Ignore" label="Current Level:" value="0" text="0" name="Level" style="position: relative; top: 50%; left: auto; width: 20%;" />
         <ui:TextField picking-mode="Ignore" label="Lines Destroyed:" value="filler text" text="0" name="Lines" style="position: relative; top: 50%; left: auto; width: 20%;" />
     </ui:VisualElement>
