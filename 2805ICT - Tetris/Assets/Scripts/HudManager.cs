@@ -33,14 +33,23 @@ public class HudManager : MonoBehaviour
         this.lines = root.Q<TextField>("Lines");
         this.level = root.Q<TextField>("Level");
 
+
         this.escapeMenu.visible = false;
 
         resumeButton.clicked += ResumeGame;
         exitButton.clicked += ExitGame;
-
     }
+
     private void GameManagerStateChanged(GameState state){
         escapeMenu.visible = (state == GameState.Paused);
+        if (state == GameState.End){
+            int currentHighScore = PrefsHelper.LoadInt("High Score");
+            int playerScore = int.Parse(score.value);
+            if(playerScore > currentHighScore){
+                PlayerPrefs.SetInt("High Score", playerScore);
+            }
+            ExitGame();
+        }
     }
 
     public void updateHUD(int s, int destroyed, int level){

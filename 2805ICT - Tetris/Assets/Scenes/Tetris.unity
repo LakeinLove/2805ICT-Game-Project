@@ -386,7 +386,7 @@ MonoBehaviour:
   lockDelay: 0.5
   lockTime: 0
   stepTime: 0
-  extrominos: 0
+  extrominos: 1
 --- !u!1 &975932237
 GameObject:
   m_ObjectHideFlags: 0
