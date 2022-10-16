@@ -25,7 +25,7 @@
     height: 100%;
 }
 
-.image-base{
+.image-base {
     position: absolute;
     left: 90%;
     top: 5%;
@@ -33,15 +33,38 @@
     height: 18%;
 }
 
-.image-i{
+.image-i {
     background-image: url('project://database/Assets/Sprites/I_tet.png?fileID=21300000&guid=bc2a303c80414e74586c1e0f17216d49&type=3#I_tet');
-
 }
 
-.image-j{
+.image-o {
+    background-image: url('project://database/Assets/Sprites/O_tet.png?fileID=2800000&amp;guid=ef7ddab0dae91bf4aa04f6c14f3a5e99&amp;type=3#O_tet');
+}
+
+.image-t {
+    background-image: url('project://database/Assets/Sprites/T_tet.png?fileID=2800000&amp;guid=b108899644a07d343947b6b00846cc9d&amp;type=3#T_tet');
+}
+
+.image-j {
     background-image: url('project://database/Assets/Sprites/J_tet.png?fileID=21300000&amp;guid=5e49aad4c6866d44f90a5416c3b5cf42&amp;type=3#J_tet');
 }
 
-.image-l{
-    background-image: url('project://database/Assets/Sprites/J_tet.png?fileID=21300000&amp;guid=5e49aad4c6866d44f90a5416c3b5cf42&amp;type=3#J_tet');
+.image-l {
+    background-image: url('project://database/Assets/Sprites/L_tet.png?fileID=2800000&amp;guid=fd21b2d31f49a5e45bfc54eea189cd84&amp;type=3#L_tet');
+}
+
+.image-s {
+    background-image: url('project://database/Assets/Sprites/S_tet.png?fileID=2800000&amp;guid=2084300b0a563d64d87e28895c49b9d0&amp;type=3#S_tet');
+}
+
+.image-z {
+    background-image: url('project://database/Assets/Sprites/Z_tet.png?fileID=2800000&amp;guid=3a4fc4c56945037408d2f6901e0b9fca&amp;type=3#Z_tet');
+}
+
+.image-c {
+
+}
+
+.image-sl {
+
 }

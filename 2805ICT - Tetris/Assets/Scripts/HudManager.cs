@@ -83,14 +83,14 @@ public class HudManager : MonoBehaviour
 
     private static readonly Dictionary<Tetromino, string>imageUSS = new Dictionary<Tetromino, string>()
     {
-        { Tetromino.I, ".image-i" },
-        { Tetromino.J, ".image-j" },
-        { Tetromino.L, ".image-l" },
-        { Tetromino.O, ".image-o" },
-        { Tetromino.S, ".image-s" },
-        { Tetromino.T, ".image-t" },
-        { Tetromino.Z, ".image-z" },
-        { Tetromino.C, ".image-c" },
-        {Tetromino.SL, ".image-sl"},
+        { Tetromino.I, "image-i" },
+        { Tetromino.J, "image-j" },
+        { Tetromino.L, "image-l" },
+        { Tetromino.O, "image-o" },
+        { Tetromino.S, "image-s" },
+        { Tetromino.T, "image-t" },
+        { Tetromino.Z, "image-z" },
+        { Tetromino.C, "image-c" },
+        {Tetromino.SL, "image-sl"},
     };
 }
