@@ -15,7 +15,33 @@
 
 .unity-base-text-field__input {
     background-color: rgb(99, 99, 99);
-    font-size: 10px;
-    width: 50%;
+    font-size: 20px;
+    width: auto;
     height: 100%;
+}
+
+.unity-base-slider__text-field {
+    width: 8%;
+    height: 100%;
+}
+
+.image-base{
+    position: absolute;
+    left: 90%;
+    top: 5%;
+    width: 10%;
+    height: 18%;
+}
+
+.image-i{
+    background-image: url('project://database/Assets/Sprites/I_tet.png?fileID=21300000&guid=bc2a303c80414e74586c1e0f17216d49&type=3#I_tet');
+
+}
+
+.image-j{
+    background-image: url('project://database/Assets/Sprites/J_tet.png?fileID=21300000&amp;guid=5e49aad4c6866d44f90a5416c3b5cf42&amp;type=3#J_tet');
+}
+
+.image-l{
+    background-image: url('project://database/Assets/Sprites/J_tet.png?fileID=21300000&amp;guid=5e49aad4c6866d44f90a5416c3b5cf42&amp;type=3#J_tet');
 }

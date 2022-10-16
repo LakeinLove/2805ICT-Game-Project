@@ -19,6 +19,7 @@ public class HudManager : MonoBehaviour
     private TextField level;
     private Button resumeButton;
     private Button exitButton;
+    private string previousImage;
 
     private void Awake(){
         //sets singleton instance
@@ -70,4 +71,26 @@ public class HudManager : MonoBehaviour
         GameManager.OnStateChange -= GameManagerStateChanged;
         GameManager.Instance.SetGameState(GameState.Quit);
     }
+
+    public void setNextPiece(Tetromino tet){
+        
+        var element = root.Q<MyImage>("nextImage");
+        element.RemoveFromClassList(previousImage);
+        previousImage = imageUSS[tet];
+        element.AddToClassList(previousImage);
+        
+    }
+
+    private static readonly Dictionary<Tetromino, string>imageUSS = new Dictionary<Tetromino, string>()
+    {
+        { Tetromino.I, ".image-i" },
+        { Tetromino.J, ".image-j" },
+        { Tetromino.L, ".image-l" },
+        { Tetromino.O, ".image-o" },
+        { Tetromino.S, ".image-s" },
+        { Tetromino.T, ".image-t" },
+        { Tetromino.Z, ".image-z" },
+        { Tetromino.C, ".image-c" },
+        {Tetromino.SL, ".image-sl"},
+    };
 }

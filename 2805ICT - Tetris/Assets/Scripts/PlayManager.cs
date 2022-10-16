@@ -9,7 +9,7 @@ public class PlayManager : MonoBehaviour
     public Gameboard board;
     public Piece activePiece {get; set;}
     //capitalised to allow use of level later with no issues
-    public int Level;
+    public int level;
     private int levelCap;
     private int levelReq;
     public int Score;
@@ -23,15 +23,21 @@ public class PlayManager : MonoBehaviour
     //set the singleton instance, then load all information either from the game preferences or from standard tetris ideals
     void Awake(){
         Instance = this;
-        Level = PrefsHelper.LoadInt("level", 0);
+        level = PrefsHelper.LoadInt("level", 0);
         extrominos = (PrefsHelper.LoadInt("gameType", 0) != 0);
         levelCap = 10;
-        levelReq = 10 * (1 + Level);
+        levelReq = 10 * (1 + level);
         Score = 0;
         LinesCleared = 0;
-        stepDelay = (2f - Level * 0.18f);
+        stepDelay = (2f - level * 0.18f);
         lockDelay = 0.5f;
             
+    }
+
+    void Start(){
+        //subscribes to the OnStateChange event in game manager
+        GameManager.OnStateChange += GameManagerStateChanged;
+
     }
 
     // Update is called once per frame, runs the piece movement
@@ -66,7 +72,7 @@ public class PlayManager : MonoBehaviour
         }
         //sets this piece in place, then updates the hud
         this.board.Set(activePiece);
-        HudManager.Instance.updateHUD(Score, LinesCleared, Level);
+        HudManager.Instance.updateHUD(Score, LinesCleared, level);
         
     }
     //score is updated by the board when it clears any number of lines, will be one lower than number of lines cleared
@@ -80,12 +86,16 @@ public class PlayManager : MonoBehaviour
     }
     //updates the level of the game, increasing the required number of lines and the delay
     public void updateLevel(){
-        if (Level >= levelCap){
+        if (level >= levelCap){
             return;
         }
         levelReq += 10;
-        Level++;
+        level++;
         stepDelay -= 0.18f;
 
+    }
+
+    private void GameManagerStateChanged(GameState state){
+        this.enabled = (state == GameState.Playing);
     }
 }

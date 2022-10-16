@@ -55,6 +55,7 @@ public class Gameboard : MonoBehaviour
         }
         TetrominoData data = nextPiece;
         this.nextPiece = this.tetrominos[random];
+        HudManager.Instance.setNextPiece(this.nextPiece.tetromino);
         this.activePiece.Initialize(this, this.spawnPosition, data);
         //if the tetromino when spawned is an illegal move, then enter game over
         if (!IsValidMove(this.activePiece, this.spawnPosition)){
@@ -150,5 +151,4 @@ public class Gameboard : MonoBehaviour
             row++;
         }
     }
-
 }

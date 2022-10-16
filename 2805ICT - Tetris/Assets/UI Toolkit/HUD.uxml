@@ -11,5 +11,6 @@
         <ui:TextField picking-mode="Ignore" label="Current Score:" name="Score" text="0" style="width: 20%; position: absolute; left: 0; top: 85%;" />
         <ui:TextField picking-mode="Ignore" label="Current Level:" value="0" text="0" name="Level" style="width: 20%; left: 0; top: 95%; position: absolute;" />
         <ui:TextField picking-mode="Ignore" label="Lines Destroyed:" value="filler text" text="0" name="Lines" style="width: 20%; position: absolute; left: 0; top: 90%;" />
+        <MyImage name="nextImage" class="image-base" />
     </ui:VisualElement>
 </ui:UXML>

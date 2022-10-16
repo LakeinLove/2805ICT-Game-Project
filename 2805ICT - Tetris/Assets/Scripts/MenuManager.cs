@@ -19,16 +19,17 @@ public class MenuManager : MonoBehaviour
     private Button highScoreButton;
     private Button exitButton;
 
-    //first thign done is to load the main menu
+    //first thing done is to load the main menu
     private void Awake(){
         this.root = GetComponent<UIDocument>().rootVisualElement;
         LoadMainMenu();
        
     }
-    //clears all ui elements, which unsubscribes all button clicks, then creates 4 buttons and subscribes to them from the template
     private void LoadMainMenu(){
+        //clears and loads ui elements from menuTemplate
         root.Clear();
         menuTemplate.CloneTree(root);
+        //creates and subscribes to buttons
         this.playButton = root.Q<Button>("Play");
         this.settingsButton = root.Q<Button>("Settings");
         this.highScoreButton = root.Q<Button>("Score");
@@ -47,16 +48,17 @@ public class MenuManager : MonoBehaviour
         exitButton.clicked -= ExitButtonClicked;
         root.Clear();
     }
-    //unloads the main menu then loads the next scene
+    //unloads the main menu then loads the next scene with a Unity Class
     private void PlayButtonClicked(){
         UnloadMainMenu();
         SceneManager.LoadScene("Tetris");
     }
     //clears the root directory again, then copies over the settingsTemplate, and creates all the buttons and values
     private void SettingsButtonClicked(){
+        //Reload UI from SettingsTemplate
         root.Clear();
         settingsTemplate.CloneTree(root);
-        
+        //query UI elements by name
         var returnButton = root.Q<Button>("ExitSettings");
         var boardSettings = root.Q<GroupBox>("GameBoardSize");
         var boardWidth = root.Q<SliderInt>("Width");
