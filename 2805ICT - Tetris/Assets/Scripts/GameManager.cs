@@ -29,7 +29,6 @@ public  class GameManager : MonoBehaviour
             case GameState.End:
                 break;
             case GameState.Quit:
-                updateHighScores();
                 SceneManager.LoadScene("Menus");
                 break;
         }

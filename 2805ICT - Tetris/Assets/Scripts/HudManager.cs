@@ -20,6 +20,10 @@ public class HudManager : MonoBehaviour
     private Button resumeButton;
     private Button exitButton;
     private string previousImage;
+    private VisualElement scoreMenu;
+    private Button saveScore;
+    private Button exitScore;
+    private int currentScore = 0;
 
     private void Awake(){
         //sets singleton instance
@@ -37,6 +41,10 @@ public class HudManager : MonoBehaviour
 
         //sets the escmenu invisible
         this.escapeMenu.visible = false;
+        scoreMenu = root.Q<VisualElement>("HighScoreMenu");
+        scoreMenu.visible = false;
+
+        PrefsHelper.refreshList();
         //subscribes to the resume and exit button clicks
         resumeButton.clicked += ResumeGame;
         exitButton.clicked += ExitGame;
@@ -46,16 +54,21 @@ public class HudManager : MonoBehaviour
     private void GameManagerStateChanged(GameState state){
         escapeMenu.visible = (state == GameState.Paused);
         if (state == GameState.End){
-            int currentHighScore = PrefsHelper.LoadInt("High Score");
-            int playerScore = int.Parse(score.value);
-            if(playerScore > currentHighScore){
-                PlayerPrefs.SetInt("High Score", playerScore);
+            if (currentScore > PrefsHelper.scoreList[9].score){
+                scoreMenu.visible = true;
+                saveScore = scoreMenu.Q<Button>("SaveButton");
+                exitScore = scoreMenu.Q<Button>("ExitButton");
+                saveScore.clicked += SaveGame;
+                exitScore.clicked += ExitGame;
             }
-            ExitGame();
+            else{
+                ExitGame();
+            }
         }
     }
     //updates the HUD every frame as called by PlayManager, which has the information required
     public void updateHUD(int s, int destroyed, int level){
+        this.currentScore = s;
         this.score.value = $"{s}";
         this.lines.value = $"{destroyed}";
         this.level.value = $"{level}";
@@ -63,6 +76,13 @@ public class HudManager : MonoBehaviour
 
     private void ResumeGame(){
         GameManager.Instance.SetGameState(GameState.Playing);
+    }
+
+    private void SaveGame(){
+        var field = scoreMenu.Q<TextField>("EnterName");
+        var playerName = field.value;
+        PrefsHelper.updateScores(currentScore, playerName);
+        ExitGame();
     }
     //exits the game by unsubscribing all buttons then changing the gamestate
     private void ExitGame(){

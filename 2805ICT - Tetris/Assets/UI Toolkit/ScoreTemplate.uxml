@@ -14,6 +14,6 @@
             <ui:Label text="#4 CAM 11200" display-tooltip-when-elided="true" name="score9" />
             <ui:Label text="#4 CAM 11200" display-tooltip-when-elided="true" name="score10" />
         </ui:GroupBox>
-        <ui:Button text="Return to Main Menu" display-tooltip-when-elided="true" name="ExitScore" style="bottom: 0; top: 90%;" />
+        <ui:Button text="Return to Main Menu" display-tooltip-when-elided="true" name="ExitScore" style="bottom: auto; top: 110%; position: absolute; right: 40%;" />
     </ui:VisualElement>
 </ui:UXML>

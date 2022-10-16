@@ -37,7 +37,7 @@ public static class PrefsHelper
     public static void updateScores(int newScore, string newName){
         scoreList.RemoveAt(9);
         scoreList.Add((newScore, newName));
-        scoreList.Sort((x, y) => x.score.CompareTo(y.score));
+        scoreList.Sort((x, y) => y.score.CompareTo(x.score));
         updatePrefs();
     }
 }

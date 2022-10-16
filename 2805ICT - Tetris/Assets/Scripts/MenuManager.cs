@@ -101,7 +101,11 @@ public class MenuManager : MonoBehaviour
         var returnButton = root.Q<Button>("ExitScore");
         returnButton.clicked += LoadMainMenu;
         void loadScores(){
-            //hi
+            PrefsHelper.refreshList();
+            for(int i = 0; i < 10; i++){
+                var field = root.Q<Label>($"score{i+1}");
+                field.text = $"{i+1}. {PrefsHelper.scoreList[i].name}: {PrefsHelper.scoreList[i].score}";
+            }
         }
     }
     //quits the entire program
