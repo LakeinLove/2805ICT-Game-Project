@@ -3,10 +3,16 @@
     <ui:VisualElement name="ScoreMenu">
         <ui:GroupBox style="-unity-text-align: upper-center;">
             <ui:Label text="High Scores:" display-tooltip-when-elided="true" />
-            <ui:Label text="#1.  LAK - 28000" display-tooltip-when-elided="true" />
-            <ui:Label text="#2 JAS 22400" display-tooltip-when-elided="true" />
-            <ui:Label text="#3 CIM 13000" display-tooltip-when-elided="true" />
-            <ui:Label text="#4 CAM 11200" display-tooltip-when-elided="true" />
+            <ui:Label text="#1.  LAK - 28000" display-tooltip-when-elided="true" name="score1" />
+            <ui:Label text="#2 JAS 22400" display-tooltip-when-elided="true" name="score2" />
+            <ui:Label text="#3 CIM 13000" display-tooltip-when-elided="true" name="score3" />
+            <ui:Label text="#4 CAM 11200" display-tooltip-when-elided="true" name="score4" />
+            <ui:Label text="#4 CAM 11200" display-tooltip-when-elided="true" name="score5" />
+            <ui:Label text="#4 CAM 11200" display-tooltip-when-elided="true" name="score6" />
+            <ui:Label text="#4 CAM 11200" display-tooltip-when-elided="true" name="score7" />
+            <ui:Label text="#4 CAM 11200" display-tooltip-when-elided="true" name="score8" />
+            <ui:Label text="#4 CAM 11200" display-tooltip-when-elided="true" name="score9" />
+            <ui:Label text="#4 CAM 11200" display-tooltip-when-elided="true" name="score10" />
         </ui:GroupBox>
         <ui:Button text="Return to Main Menu" display-tooltip-when-elided="true" name="ExitScore" style="bottom: 0; top: 90%;" />
     </ui:VisualElement>

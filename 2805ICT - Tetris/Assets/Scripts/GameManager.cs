@@ -29,11 +29,20 @@ public  class GameManager : MonoBehaviour
             case GameState.End:
                 break;
             case GameState.Quit:
+                updateHighScores();
                 SceneManager.LoadScene("Menus");
                 break;
         }
         //ensures that it only calls if it is not NULL
         OnStateChange?.Invoke(newState);
+    }
+
+    void updateHighScores(){
+        var currentScore = PlayManager.Instance.Score;
+        if (currentScore <= PrefsHelper.scoreList[9].score){
+            return;
+        }
+        
     }
 }
 //Enum of all possible states

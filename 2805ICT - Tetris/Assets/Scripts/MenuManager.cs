@@ -96,8 +96,13 @@ public class MenuManager : MonoBehaviour
     private void ScoreButtonClicked(){
         root.Clear();
         scoreTemplate.CloneTree(root);
+        loadScores();
+        
         var returnButton = root.Q<Button>("ExitScore");
         returnButton.clicked += LoadMainMenu;
+        void loadScores(){
+            //hi
+        }
     }
     //quits the entire program
     private void ExitButtonClicked(){
