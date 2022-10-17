@@ -52,7 +52,9 @@ public class PlayManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow)){
             activePiece.Rotate(1);
         }
-
+        if (Input.GetKeyDown(KeyCode.M)){
+            SoundManager.Instance.MuteUnmute();
+        }
         if (Input.GetKeyDown(KeyCode.LeftArrow)){
             activePiece.Move(Vector2Int.left);
         }

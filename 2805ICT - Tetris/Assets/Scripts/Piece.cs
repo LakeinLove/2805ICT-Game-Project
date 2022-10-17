@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 public class Piece : MonoBehaviour
 {
+    [SerializeField] private AudioClip placementNoise;
     public int currentRotation {get; private set;}
     public Gameboard board {get; private set;}
     public TetrominoData data {get; private set;}
@@ -47,6 +48,7 @@ public class Piece : MonoBehaviour
     //spawns the next piece afterwards
     private void Lock(){
         this.board.Set(this);
+        SoundManager.Instance.PlaySound(placementNoise);
         this.board.ClearLines();
         this.board.SpawnPiece();
     }
