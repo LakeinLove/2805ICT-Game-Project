@@ -33,6 +33,7 @@ public class Gameboard : MonoBehaviour
         int boardHeight = PrefsHelper.LoadInt("boardHeight", 20);
         boardSize = new Vector2Int(boardWidth, boardHeight);
         grid.size = boardSize;
+        this.spawnPosition = new Vector3Int(-1, (this.boardSize.y /2 - 2));
         //set data
         this.tilemap = GetComponentInChildren<Tilemap>();
         this.activePiece = GetComponentInChildren<Piece>();
@@ -61,8 +62,10 @@ public class Gameboard : MonoBehaviour
             GameOver();
         }
         //this sets the active piece
+        if (GameManager.Instance.aiGame){
+            ai.CalcMove();
+        }
         Set(this.activePiece);
-        ai.CalcMove();
     }
     //empties the tilemap/board and then calls the end of game state
     public void GameOver(){

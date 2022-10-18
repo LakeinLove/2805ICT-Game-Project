@@ -38,6 +38,8 @@ public class HudManager : MonoBehaviour
         this.score = root.Q<TextField>("Score");
         this.lines = root.Q<TextField>("Lines");
         this.level = root.Q<TextField>("Level");
+        var player = root.Q<RadioButtonGroup>("Player");
+        player.value = PrefsHelper.LoadInt("playerSelect");
 
         //sets the escmenu invisible
         this.escapeMenu.visible = false;

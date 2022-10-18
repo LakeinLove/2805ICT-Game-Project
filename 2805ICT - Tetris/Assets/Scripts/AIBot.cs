@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System;
+using System.Linq;
 
 public class AIBot : MonoBehaviour
 {
@@ -32,7 +33,7 @@ public class AIBot : MonoBehaviour
                 currentInput = inputs.Dequeue();
                 yield return null;
                 currentInput = KeyCode.None;
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.25f);
             }
             else{
                 yield return null;
@@ -45,7 +46,7 @@ public class AIBot : MonoBehaviour
         bestScore = float.MaxValue;
         bounds = board.Bounds;
         testPiece.CopyPieceData(board.activePiece);
-        originalPiecePosition = board.activePiece.position;
+        originalPiecePosition = board.activePiece.position + (Vector3Int.down * 3);
         GenAllPossibleMoves();
         WriteInputs();
     }
@@ -99,8 +100,6 @@ public class AIBot : MonoBehaviour
             testPiece.AIDrop();
             this.board.Set(testPiece);
             float score = CalculateScore(this.board.tilemap);
-            Debug.Log(score);
-            Debug.Log(bestScore);
             if (score < bestScore || (score == bestScore && UnityEngine.Random.Range(0, 1) == 0)){
                 bestScore = score;
                 bestPos = testPiece.position;
@@ -118,7 +117,9 @@ public class AIBot : MonoBehaviour
         float gaps = CountGaps(map);
         float diff = CalcGreatestDifference(map);
         float consec = ConsecutiveDiff(map);
-        float total = (height* 0.9f) + (gaps *0.29f) + (diff * 0.44f) + (consec * 0.16f);
+        float stdDiv = stdDevi(map);
+        float linesClear = LinesCompleted(map);
+        float total = (height* 0.3f) + (gaps *0.2f) + (stdDiv * 0.7f) + (diff * 1.0f) + (consec * 0.6f) + (linesClear * -4f);
         return total;
     }
 
@@ -127,31 +128,70 @@ public class AIBot : MonoBehaviour
         int hole = 0;
         for(int i = bounds.xMin; i <= bounds.xMax; i++){
             bool top = false;
-            for(int j = bounds.yMax; j <= bounds.yMin; j--){
+            for(int j = bounds.yMax; j >= bounds.yMin; j--){
                 if(map.HasTile(new Vector3Int(i, j))){
                     top = true;
                 }
-                if(!map.HasTile(new Vector3Int(i, j)) && top){
+                if((!map.HasTile(new Vector3Int(i, j))) && top){
                     hole += 1;
                 }
             }
         }
         return hole;
     }
-    private float MeanHeight(Tilemap map){
-        float height = 0;
-        int top = 0;
+
+    private float stdDevi(Tilemap map){
+        List<float> heights = new List<float>();
+        float top = 0;
         for(int i = bounds.xMin; i <= bounds.xMax; i++){
+            top = 0;
             for(int j = bounds.yMin; j <= bounds.yMax; j++){
                 if(map.HasTile(new Vector3Int(i, j))){
                     top = (j - bounds.yMin);
                 }
             }
+            heights.Add(top);
+        }
+
+        float average = heights.Average();  
+        float sumOfDerivation = 0;  
+        foreach (float value in heights)  
+        {  
+            sumOfDerivation += (value) * (value);  
+        }  
+        float sumOfDerivationAverage = sumOfDerivation / (heights.Count - 1);  
+        return (float) Math.Sqrt(sumOfDerivationAverage - (average*average));
+    }
+    private float MeanHeight(Tilemap map){
+        float height = 0;
+        int top = 0;
+        for(int i = bounds.xMin; i <= bounds.xMax; i++){
+            top = 0;
+            for(int j = bounds.yMax; j >= bounds.yMin; j--){
+                if(map.HasTile(new Vector3Int(i, j))){
+                    top = (j - bounds.yMin);
+                    break;
+                }
+            }
             height += top;
         }
-        height = height / (bounds.xMax * 2);
+        height = height / (bounds.xMax - bounds.xMin);
         return height;
 
+    }
+
+    private float LinesCompleted(Tilemap map){
+        int totalLines = 0;
+        for (int i = bounds.yMin; i <= bounds.yMax; i++){
+            int line = 1;
+            for (int j = bounds.xMin; j <= bounds.xMax; j++){
+                if (!map.HasTile(new Vector3Int(j, i))){
+                    line = 0;
+                }
+            }
+            totalLines += line;
+        }
+        return totalLines;
     }
 
     private float ConsecutiveDiff(Tilemap map){
@@ -161,9 +201,10 @@ public class AIBot : MonoBehaviour
         for(int i = bounds.xMin; i <= bounds.xMax; i++){
             columnOne = columnTwo;
             columnTwo = 0;
-            for(int j = bounds.yMin; j <= bounds.yMax; j++){
+            for(int j = bounds.yMax; j >= bounds.yMin; j--){
                 if(map.HasTile(new Vector3Int(i, j))){
-                    columnTwo += 1;
+                    columnTwo = (j - bounds.yMin);
+                    break;
                 }
             }
             if (i == bounds.xMin){
@@ -183,9 +224,10 @@ public class AIBot : MonoBehaviour
         int column = 0;
         for(int i = bounds.xMin; i <= bounds.xMax; i++){
             column = 0;
-            for(int j = bounds.yMin; j <= bounds.yMax; j++){
+            for(int j = bounds.yMax; j >= bounds.yMin; j--){
                 if(map.HasTile(new Vector3Int(i, j))){
-                    column += 1;
+                    column = (j - bounds.yMin);
+                    break;
                 }
             }
             if (column < lowest){

@@ -77,12 +77,11 @@ public class Piece : MonoBehaviour
         int originalRotation = this.currentRotation;
         this.currentRotation = Wrap(this.currentRotation + direction, 0, 4);
         ApplyRotationMatrix(direction);
-        if (!GameManager.Instance.aiGame){
-            if (!TestKicks(this.currentRotation, direction)){
+        if (!TestKicks(this.currentRotation, direction)){
             this.currentRotation = originalRotation;
             ApplyRotationMatrix(-direction);
-            }
         }
+    
     }
     public void RotateMultiple(int numberRotation){
         for(int i = 0; i < numberRotation; i++){

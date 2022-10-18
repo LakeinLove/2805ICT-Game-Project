@@ -23,13 +23,8 @@ public class PlayManager : MonoBehaviour
 
     //set the singleton instance, then load all information either from the game preferences or from standard tetris ideals
     void Awake(){
-        if (Instance == null){
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else{
-            Destroy(gameObject);
-        }
+        Instance = this;
+
         level = PrefsHelper.LoadInt("level", 0);
         extrominos = (PrefsHelper.LoadInt("gameType", 0) != 0);
         levelCap = 10;
