@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System;
 
 public class AIBot : MonoBehaviour
 {
@@ -9,37 +10,62 @@ public class AIBot : MonoBehaviour
 
     private Piece testPiece;
     private Vector3Int originalPiecePosition;
-    private List<Gameboard> boardMaps;
     private RectInt bounds;
     private float bestScore;
     private Vector3Int bestPos;
     private int bestRot;
+    private Queue<KeyCode> inputs;
+    private KeyCode currentInput;
 
-
-    public void Start(){
-        StartCoroutine(AILoop());
+    private void Awake(){
+        inputs = new Queue<KeyCode>();
+        testPiece = GetComponent<Piece>();
     }
 
-    private IEnumerator AILoop(){
+    private void Start(){
+        StartCoroutine(nameof(InputLoop));
+    }
+
+    private IEnumerator InputLoop(){
         while (GameManager.Instance.State == GameState.Playing){
-            MakeAMove();
-            yield return new WaitForSeconds(2);
+            if (inputs.Count != 0){
+                currentInput = inputs.Dequeue();
+                yield return null;
+                currentInput = KeyCode.None;
+                yield return new WaitForSeconds(0.5f);
+            }
+            else{
+                yield return null;
+            }
         }
+
     }
 
-    public void MakeAMove(){
+    public void CalcMove(){
         bestScore = float.MaxValue;
         bounds = board.Bounds;
-        testPiece = board.activePiece;
-        originalPiecePosition = testPiece.position;
+        testPiece.CopyPieceData(board.activePiece);
+        originalPiecePosition = board.activePiece.position;
         GenAllPossibleMoves();
-        MovePiece(bestPos, bestRot);
+        WriteInputs();
     }
 
-    private void MovePiece(Vector3Int newPosition, int rotation){
-        PlayManager.Instance.activePiece.RotateMultiple(rotation);
-        PlayManager.Instance.activePiece.SetLocation(newPosition);
-        PlayManager.Instance.activePiece.InstaDrop();
+    private void WriteInputs(){
+        int newX = bestPos.x;
+        for (int i = PlayManager.Instance.activePiece.currentRotation; i < bestRot; i++){
+            inputs.Enqueue(KeyCode.UpArrow);
+        }
+        for (int i = PlayManager.Instance.activePiece.position.x; i < newX; i++){
+            inputs.Enqueue(KeyCode.RightArrow);
+        }
+        for (int i = PlayManager.Instance.activePiece.position.x; i > newX; i--){
+            inputs.Enqueue(KeyCode.LeftArrow);
+        }
+        inputs.Enqueue(KeyCode.Space);
+    }
+
+    public bool GetKeyDown(KeyCode input){
+        return currentInput == input;
     }
 
     private void GenAllPossibleMoves(){
@@ -54,7 +80,7 @@ public class AIBot : MonoBehaviour
         else{
             rotNum = 3;
         }
-        for(int i = 0; i < rotNum; i++){
+        for(int i = 0; i <= rotNum; i++){
             DropAll(i);
         }
         //record tilemap of all valid moves that are unique
@@ -70,10 +96,12 @@ public class AIBot : MonoBehaviour
             if(!testPiece.Move(newPos)){
                 continue;
             }
-            testPiece.InstaDrop();
+            testPiece.AIDrop();
             this.board.Set(testPiece);
             float score = CalculateScore(this.board.tilemap);
-            if (score < bestScore){
+            Debug.Log(score);
+            Debug.Log(bestScore);
+            if (score < bestScore || (score == bestScore && UnityEngine.Random.Range(0, 1) == 0)){
                 bestScore = score;
                 bestPos = testPiece.position;
                 bestRot = testPiece.currentRotation;
@@ -86,26 +114,67 @@ public class AIBot : MonoBehaviour
 
 
     private float CalculateScore(Tilemap map){
-        float height = 0, gaps = 0;
-        CountGapsAndHeight(map, ref gaps, ref height);
+        float height = MeanHeight(map);
+        float gaps = CountGaps(map);
         float diff = CalcGreatestDifference(map);
-        float total = (height * 0.9f)  + (gaps * 0.29f) + (diff * 0.44f);
+        float consec = ConsecutiveDiff(map);
+        float total = (height* 0.9f) + (gaps *0.29f) + (diff * 0.44f) + (consec * 0.16f);
         return total;
     }
 
 
-    private void CountGapsAndHeight(Tilemap map, ref float gaps, ref float height){
+    private float CountGaps(Tilemap map){
+        int hole = 0;
         for(int i = bounds.xMin; i <= bounds.xMax; i++){
-            for(int j = bounds.yMin; j <= bounds.yMax; j++){
-                if(!map.HasTile(new Vector3Int(i, j)) && map.HasTile(new Vector3Int(i, j-1))){
-                    gaps += 1;
-                }
+            bool top = false;
+            for(int j = bounds.yMax; j <= bounds.yMin; j--){
                 if(map.HasTile(new Vector3Int(i, j))){
-                    height += 1;
+                    top = true;
+                }
+                if(!map.HasTile(new Vector3Int(i, j)) && top){
+                    hole += 1;
                 }
             }
         }
-        height = height / (bounds.xMax - bounds.xMin);
+        return hole;
+    }
+    private float MeanHeight(Tilemap map){
+        float height = 0;
+        int top = 0;
+        for(int i = bounds.xMin; i <= bounds.xMax; i++){
+            for(int j = bounds.yMin; j <= bounds.yMax; j++){
+                if(map.HasTile(new Vector3Int(i, j))){
+                    top = (j - bounds.yMin);
+                }
+            }
+            height += top;
+        }
+        height = height / (bounds.xMax * 2);
+        return height;
+
+    }
+
+    private float ConsecutiveDiff(Tilemap map){
+        int columnOne;
+        int columnTwo = 0;
+        int biggestDiff = 0;
+        for(int i = bounds.xMin; i <= bounds.xMax; i++){
+            columnOne = columnTwo;
+            columnTwo = 0;
+            for(int j = bounds.yMin; j <= bounds.yMax; j++){
+                if(map.HasTile(new Vector3Int(i, j))){
+                    columnTwo += 1;
+                }
+            }
+            if (i == bounds.xMin){
+                continue;
+            }
+            int diff = Math.Abs(columnOne - columnTwo);
+            if((diff > biggestDiff)){
+                biggestDiff = diff;
+            }
+        }
+        return biggestDiff;
     }
 
     private float CalcGreatestDifference(Tilemap map){
@@ -113,6 +182,7 @@ public class AIBot : MonoBehaviour
         int highest = int.MinValue;
         int column = 0;
         for(int i = bounds.xMin; i <= bounds.xMax; i++){
+            column = 0;
             for(int j = bounds.yMin; j <= bounds.yMax; j++){
                 if(map.HasTile(new Vector3Int(i, j))){
                     column += 1;

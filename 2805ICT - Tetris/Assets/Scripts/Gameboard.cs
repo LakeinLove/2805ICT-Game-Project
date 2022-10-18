@@ -12,6 +12,7 @@ public class Gameboard : MonoBehaviour
     //the currently moving piece
     public Piece activePiece {get; private set;}
     public Vector3Int spawnPosition;
+    public AIBot ai;
     //data for the next piece so it can be displayed
     public TetrominoData nextPiece;
     public Vector2Int boardSize;
@@ -42,11 +43,9 @@ public class Gameboard : MonoBehaviour
         for (int i = 0; i < tetrominoNum; i++){
             this.tetrominos[i].Initialize();
         }
-    }
-
-    private void Start(){
         SpawnPiece();
     }
+
 
     public void SpawnPiece(){
         int random = Random.Range(0, tetrominoNum);
@@ -63,6 +62,7 @@ public class Gameboard : MonoBehaviour
         }
         //this sets the active piece
         Set(this.activePiece);
+        ai.CalcMove();
     }
     //empties the tilemap/board and then calls the end of game state
     public void GameOver(){

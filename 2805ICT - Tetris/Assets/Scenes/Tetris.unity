@@ -366,7 +366,7 @@ AudioSource:
   m_Volume: 0.443
   m_Pitch: 1
   Loop: 1
-  Mute: 0
+  Mute: 1
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -1001,6 +1001,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1526329531}
   - component: {fileID: 1526329530}
+  - component: {fileID: 1526329532}
   m_Layer: 0
   m_Name: AIBot
   m_TagString: Untagged
@@ -1036,6 +1037,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1526329532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526329529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7e9d21e3d7d70b4f9ddbaf40b61aed1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placementNoise: {fileID: 0}
+  currentRotation: 0
+  data:
+    tetromino: 0
+    tile: {fileID: 0}
 --- !u!1 &1907898882
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,6 +1116,7 @@ MonoBehaviour:
   grid: {fileID: 2144801428}
   tilemap: {fileID: 975932240}
   spawnPosition: {x: -1, y: 8, z: 0}
+  ai: {fileID: 1526329530}
   nextPiece:
     tetromino: 0
     tile: {fileID: 0}
@@ -1134,6 +1153,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placementNoise: {fileID: 8300000, guid: 26a70f04b6c132840bffbbb267fafc7d, type: 3}
+  currentRotation: 0
+  data:
+    tetromino: 0
+    tile: {fileID: 0}
 --- !u!1 &2102044727
 GameObject:
   m_ObjectHideFlags: 0

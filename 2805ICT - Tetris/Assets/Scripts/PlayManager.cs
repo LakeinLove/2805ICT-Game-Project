@@ -8,6 +8,7 @@ public class PlayManager : MonoBehaviour
     public static PlayManager Instance;
     public Gameboard board;
     public Piece activePiece {get; set;}
+    public AIBot ai;
     //capitalised to allow use of level later with no issues
     public int level;
     private int levelCap;
@@ -22,7 +23,13 @@ public class PlayManager : MonoBehaviour
 
     //set the singleton instance, then load all information either from the game preferences or from standard tetris ideals
     void Awake(){
-        Instance = this;
+        if (Instance == null){
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else{
+            Destroy(gameObject);
+        }
         level = PrefsHelper.LoadInt("level", 0);
         extrominos = (PrefsHelper.LoadInt("gameType", 0) != 0);
         levelCap = 10;
@@ -49,26 +56,25 @@ public class PlayManager : MonoBehaviour
         this.board.Unset(activePiece);
         this.lockTime += Time.deltaTime;
         //rotates clockwise
-        if (!GameManager.Instance.aiGame){
-            if (Input.GetKeyDown(KeyCode.UpArrow)){
-                activePiece.Rotate(1);
-            }
-            if (Input.GetKeyDown(KeyCode.M)){
-                SoundManager.Instance.MuteUnmute();
-            }
-            if (Input.GetKeyDown(KeyCode.LeftArrow)){
-                activePiece.Move(Vector2Int.left);
-            }
-            else if (Input.GetKeyDown(KeyCode.RightArrow)){
-                activePiece.Move(Vector2Int.right);
-            }
-            if (Input.GetKeyDown(KeyCode.DownArrow)){
-                activePiece.Move(Vector2Int.down);
-            }
-            if (Input.GetKeyDown(KeyCode.Space)){
-                activePiece.InstaDrop();
-            }
+        if (GetKeyDown(KeyCode.UpArrow)){
+            activePiece.Rotate(1);
         }
+        if (GetKeyDown(KeyCode.M)){
+            SoundManager.Instance.MuteUnmute();
+        }
+        if (GetKeyDown(KeyCode.LeftArrow)){
+            activePiece.Move(Vector2Int.left);
+        }
+        else if (GetKeyDown(KeyCode.RightArrow)){
+            activePiece.Move(Vector2Int.right);
+        }
+        if (GetKeyDown(KeyCode.DownArrow)){
+            activePiece.Move(Vector2Int.down);
+        }
+        if (GetKeyDown(KeyCode.Space)){
+            activePiece.InstaDrop();
+        }
+    
 
         if (Time.time >= this.stepTime){
             this.stepTime = Time.time + this.stepDelay;
@@ -77,7 +83,13 @@ public class PlayManager : MonoBehaviour
         //sets this piece in place, then updates the hud
         this.board.Set(activePiece);
         HudManager.Instance.updateHUD(Score, LinesCleared, level);
-        
+        bool GetKeyDown(KeyCode input){
+            if (GameManager.Instance.aiGame){
+                return ai.GetKeyDown(input);
+            }
+            return Input.GetKeyDown(input);
+
+        }
     }
     //score is updated by the board when it clears any number of lines, will be one lower than number of lines cleared
     public void updateScore(int linesCleared){

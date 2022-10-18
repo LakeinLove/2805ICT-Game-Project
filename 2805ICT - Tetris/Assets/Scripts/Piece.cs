@@ -37,6 +37,16 @@ public class Piece : MonoBehaviour
             Lock();
         }
     }
+    public void CopyPieceData(Piece first){
+        this.position = first.position;
+        this.board = first.board;
+        this.data = first.data;
+        this.currentRotation = first.currentRotation;
+        this.cells = new Vector3Int[data.cells.Length];
+        for (int i = 0; i < data.cells.Length; i++){
+            this.cells[i] = (Vector3Int) data.cells[i];
+        }
+    }
     //instantly sets location
     public void SetLocation(Vector3Int newPosition){
         this.position = newPosition;
@@ -47,6 +57,12 @@ public class Piece : MonoBehaviour
             continue;
         }
         Lock();
+    }
+
+    public void AIDrop(){
+        while (Move(Vector2Int.down)){
+            continue;
+        }
     }
     //locks the piece in place, setting it to the board and then checked if the line needs to be cleared
     //spawns the next piece afterwards
@@ -61,10 +77,11 @@ public class Piece : MonoBehaviour
         int originalRotation = this.currentRotation;
         this.currentRotation = Wrap(this.currentRotation + direction, 0, 4);
         ApplyRotationMatrix(direction);
-        
-        if (!TestKicks(this.currentRotation, direction)){
+        if (!GameManager.Instance.aiGame){
+            if (!TestKicks(this.currentRotation, direction)){
             this.currentRotation = originalRotation;
             ApplyRotationMatrix(-direction);
+            }
         }
     }
     public void RotateMultiple(int numberRotation){
