@@ -12,9 +12,14 @@ public  class GameManager : MonoBehaviour
     public GameState State;
     //an event that other objects and singletons can subscribe to 
     public static event Action<GameState> OnStateChange;
+    public Boolean aiGame;
     void Awake(){
         //set the singleton
         Instance = this;
+        aiGame = false;
+        if (PrefsHelper.LoadInt("playerSelect") != 0){
+            aiGame = true;
+        }
     }
     //begin the game when game opens
     void Start(){

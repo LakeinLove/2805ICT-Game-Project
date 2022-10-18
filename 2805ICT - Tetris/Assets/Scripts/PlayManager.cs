@@ -49,23 +49,25 @@ public class PlayManager : MonoBehaviour
         this.board.Unset(activePiece);
         this.lockTime += Time.deltaTime;
         //rotates clockwise
-        if (Input.GetKeyDown(KeyCode.UpArrow)){
-            activePiece.Rotate(1);
-        }
-        if (Input.GetKeyDown(KeyCode.M)){
-            SoundManager.Instance.MuteUnmute();
-        }
-        if (Input.GetKeyDown(KeyCode.LeftArrow)){
-            activePiece.Move(Vector2Int.left);
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow)){
-            activePiece.Move(Vector2Int.right);
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow)){
-            activePiece.Move(Vector2Int.down);
-        }
-        if (Input.GetKeyDown(KeyCode.Space)){
-            activePiece.InstaDrop();
+        if (!GameManager.Instance.aiGame){
+            if (Input.GetKeyDown(KeyCode.UpArrow)){
+                activePiece.Rotate(1);
+            }
+            if (Input.GetKeyDown(KeyCode.M)){
+                SoundManager.Instance.MuteUnmute();
+            }
+            if (Input.GetKeyDown(KeyCode.LeftArrow)){
+                activePiece.Move(Vector2Int.left);
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow)){
+                activePiece.Move(Vector2Int.right);
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow)){
+                activePiece.Move(Vector2Int.down);
+            }
+            if (Input.GetKeyDown(KeyCode.Space)){
+                activePiece.InstaDrop();
+            }
         }
 
         if (Time.time >= this.stepTime){

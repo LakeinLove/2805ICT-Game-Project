@@ -37,6 +37,10 @@ public class Piece : MonoBehaviour
             Lock();
         }
     }
+    //instantly sets location
+    public void SetLocation(Vector3Int newPosition){
+        this.position = newPosition;
+    }
     //drops the piece to the bottom by moving over and over
     public void InstaDrop(){
         while (Move(Vector2Int.down)){
@@ -61,6 +65,11 @@ public class Piece : MonoBehaviour
         if (!TestKicks(this.currentRotation, direction)){
             this.currentRotation = originalRotation;
             ApplyRotationMatrix(-direction);
+        }
+    }
+    public void RotateMultiple(int numberRotation){
+        for(int i = 0; i < numberRotation; i++){
+            Rotate(1);
         }
     }
     //applies the rotation matrix to each square of the tetromino
